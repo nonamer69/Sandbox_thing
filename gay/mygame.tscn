@@ -1,12 +1,30 @@
-[gd_scene format=3 uid="uid://dypktsh77fu7m"]
+[gd_scene format=4 uid="uid://dypktsh77fu7m"]
 
 [ext_resource type="Texture2D" uid="uid://yg6rva46ip82" path="res://standing.png" id="1_havdt"]
+[ext_resource type="Texture2D" uid="uid://b06n3cclq5na5" path="res://falling.png" id="2_ddyl4"]
 [ext_resource type="Texture2D" uid="uid://cqd4yw2s8gt1i" path="res://walk1.png" id="2_pi5ie"]
 [ext_resource type="Texture2D" uid="uid://dw4pf7oj5pmxp" path="res://walk2.png" id="3_w6uqj"]
 [ext_resource type="Script" uid="uid://cxfduc0a02fwl" path="res://player.gd" id="4_pi5ie"]
+[ext_resource type="Texture2D" uid="uid://fyvktnwinoyy" path="res://wall.png" id="5_w6uqj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ddyl4"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ddyl4")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_havdt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_havdt")
@@ -21,14 +39,49 @@ animations = [{
 "texture": ExtResource("3_w6uqj")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walk",
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_pi5ie"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6uqj"]
+size = Vector2(192, 24)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w6uqj"]
+texture = ExtResource("5_w6uqj")
+texture_region_size = Vector2i(24, 24)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ddyl4"]
+tile_size = Vector2i(24, 24)
+sources/0 = SubResource("TileSetAtlasSource_w6uqj")
+
 [node name="Node2D" type="Node2D" unique_id=708372982]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=571939205]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=940585161]
+script = ExtResource("4_pi5ie")
+
+[node name="Animation" type="AnimatedSprite2D" parent="Player" unique_id=571939205]
+texture_filter = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_ddyl4")
-frame_progress = 0.7786696
-script = ExtResource("4_pi5ie")
+animation = &"fall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=731130947]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_pi5ie")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=301515656]
+zoom = Vector2(4, 4)
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1143273432]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1596052723]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_w6uqj")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Floor" unique_id=1680604398]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAD8/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD+/wAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_ddyl4")
