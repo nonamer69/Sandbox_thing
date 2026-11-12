@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bban17qrcdlpk"]
+
+[ext_resource type="Texture2D" uid="uid://bi0x3fjb6sqlk" path="res://images/stone.png" id="1_6s6ed"]
+[ext_resource type="Script" uid="uid://b6g06uhvb6d66" path="res://Inventory/items/Stone/stone.gd" id="1_ttiue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rq0vd"]
+size = Vector2(4, 4)
+
+[node name="Stone" type="RigidBody2D" unique_id=1351031462]
+collision_layer = 2
+collision_mask = 2
+mass = 0.107
+script = ExtResource("1_ttiue")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1471067033]
+shape = SubResource("RectangleShape2D_rq0vd")
+
+[node name="Stone" type="Sprite2D" parent="." unique_id=1690113079]
+texture_filter = 1
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_6s6ed")

@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://ddmkkfuawlm0l"]
+
+[ext_resource type="Script" uid="uid://cxfduc0a02fwl" path="res://player.gd" id="1_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://b06n3cclq5na5" path="res://images/falling.png" id="2_kdubu"]
+[ext_resource type="Texture2D" uid="uid://yg6rva46ip82" path="res://images/standing.png" id="3_d21ai"]
+[ext_resource type="Texture2D" uid="uid://cqd4yw2s8gt1i" path="res://images/walk1.png" id="4_rj586"]
+[ext_resource type="Texture2D" uid="uid://dw4pf7oj5pmxp" path="res://images/walk2.png" id="5_4d7sh"]
+[ext_resource type="PackedScene" uid="uid://ikfuds66w6is" path="res://Inventory/inv_ui.tscn" id="6_2hs0m"]
+
+[sub_resource type="Gradient" id="Gradient_ddyl4"]
+colors = PackedColorArray(0, 0.45882353, 1, 1, 0.62650037, 0.77599007, 0.83981586, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ir8iy"]
+gradient = SubResource("Gradient_ddyl4")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqns4"]
+bg_color = Color(1, 1, 1, 0.49803922)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0ka3"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_0h7mo"]
+font_size = 7
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2bti"]
+size = Vector2(9, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ta5nu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kdubu")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_d21ai")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.7,
+"texture": ExtResource("3_d21ai")
+}, {
+"duration": 0.7,
+"texture": ExtResource("4_rj586")
+}, {
+"duration": 0.7,
+"texture": ExtResource("3_d21ai")
+}, {
+"duration": 0.7,
+"texture": ExtResource("5_4d7sh")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=545231138]
+script = ExtResource("1_q6r6c")
+
+[node name="GUI" type="Node2D" parent="." unique_id=1384024124]
+
+[node name="Sky" type="TextureRect" parent="GUI" unique_id=1192024139]
+offset_left = -144.0
+offset_top = -102.0
+offset_right = 144.0
+offset_bottom = 60.0
+texture = SubResource("GradientTexture2D_ir8iy")
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="Node2D" parent="GUI" unique_id=1438077908]
+
+[node name="HealthBar" type="ProgressBar" parent="GUI/Health" unique_id=221755829]
+texture_filter = 1
+offset_left = -140.0
+offset_top = -98.0
+offset_right = -94.0
+offset_bottom = -90.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hqns4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_x0ka3")
+value = 100.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthLabel" type="Label" parent="GUI/Health" unique_id=160952483]
+texture_filter = 2
+offset_left = -139.0
+offset_top = -99.0
+offset_right = -95.0
+offset_bottom = -89.229164
+pivot_offset = Vector2(130, 51)
+text = "Health: 100"
+label_settings = SubResource("LabelSettings_0h7mo")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Inv_UI" parent="GUI" unique_id=227443401 instance=ExtResource("6_2hs0m")]
+offset_top = 44.0
+offset_bottom = 84.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1997965939]
+position = Vector2(-0.5, -11.5)
+shape = SubResource("RectangleShape2D_d2bti")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1713594921]
+position = Vector2(0, -21)
+zoom = Vector2(4, 4)
+
+[node name="Animation" type="AnimatedSprite2D" parent="." unique_id=18315416]
+texture_filter = 1
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_ta5nu")
+animation = &"idle"

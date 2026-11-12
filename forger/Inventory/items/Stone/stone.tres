@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InvItem" format=3 uid="uid://blqn3ovuqpipd"]
+
+[ext_resource type="Script" uid="uid://h85grbglh11c" path="res://Inventory/inventory_item.gd" id="1_th2db"]
+[ext_resource type="Texture2D" uid="uid://bi0x3fjb6sqlk" path="res://images/stone.png" id="2_o7qag"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2oypn"]
+diffuse_texture = ExtResource("2_o7qag")
+texture_filter = 1
+
+[resource]
+script = ExtResource("1_th2db")
+name = "stone"
+size = Vector2(8, 8)
+texture = SubResource("CanvasTexture_2oypn")
+path = "res://Inventory/items/Stone/stone.tscn"
+metadata/_custom_type_script = "uid://h85grbglh11c"
